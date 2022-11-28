@@ -1,0 +1,256 @@
+% This must be in the first 5 lines to tell arXiv to use pdfLaTeX, which is strongly recommended.
+\pdfoutput=1
+% In particular, the hyperref package requires pdfLaTeX in order to break URLs across lines.
+
+\documentclass[11pt]{article}
+
+% Remove the "review" option to generate the final version.
+\usepackage[review]{acl}
+
+% Standard package includes
+\usepackage{times}
+\usepackage{latexsym}
+
+% For proper rendering and hyphenation of words containing Latin characters (including in bib files)
+\usepackage[T1]{fontenc}
+% For Vietnamese characters
+% \usepackage[T5]{fontenc}
+% See https://www.latex-project.org/help/documentation/encguide.pdf for other character sets
+
+% This assumes your files are encoded as UTF8
+\usepackage[utf8]{inputenc}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{xspace}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{color}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amssymb,amsthm}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{caption}
+%\usepackage{paralist}
+\usepackage{cleveref}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\newcommand{\todo}[1]{{\color{red}{#1}}}
+\newcommand{\our}{\mbox{\textsc{pretrain}}}
+% If the title and author information does not fit in the area allocated, uncomment the following
+%
+%\setlength\titlebox{<dim>}
+%
+% and set <dim> to something 5cm or larger.
+
+\title{Unsupervised Contrastive Learning for Long Text Embeddings}
+
+% Author information can be set in various styles:
+% For several authors from the same institution:
+% \author{Author 1 \and ... \and Author n \\
+%         Address line \\ ... \\ Address line}
+% if the names do not fit well on one line use
+%         Author 1 \\ {\bf Author 2} \\ ... \\ {\bf Author n} \\
+% For authors from different institutions:
+% \author{Author 1 \\ Address line \\  ... \\ Address line
+%         \And  ... \And
+%         Author n \\ Address line \\ ... \\ Address line}
+% To start a seperate ``row'' of authors use \AND, as in
+% \author{Author 1 \\ Address line \\  ... \\ Address line
+%         \AND
+%         Author 2 \\ Address line \\ ... \\ Address line \And
+%         Author 3 \\ Address line \\ ... \\ Address line}
+
+\author{Yujie Wang \\
+  Claremont Graduate University 
+  \texttt{yujie.wang@cgu.edu} \\\And
+  Mike Izbicki \\
+  Claremont McKenna College
+  \texttt{Michael.Izbicki@ClaremontMcKenna.edu} \\}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+High-quality text embeddings are essential to various natural language understanding tasks especially for low-resource settings. 
+Existing methods are proposed for general text understanding but representations for long text are less explored.
+Basically, to have better embeddings for long text, a model should have the ability to recognize key information in a long text. 
+To this end, we present an unsupervised contrastive learning framework for long text embeddings in this paper. 
+Specifically, our model is pretrained on a large scale to distinguish if two texts have the same topic. 
+The key to pretraining is positive pair construction from our key information redundancy assumption for long text. 
+With this assumption, our model can be pretrained to better understand long text without any supervision.
+To have a fair comparison to previous methods, we pretrain BERT and Longformer with our proposed contrastive learning framework. The pretrained text embeddings are evaluated by five different datasets under general and few-shot text classification settings.
+Experimental results show that models pretrained by our framework outperform the state-of-the-art baselines by \todo{NUM} F1 scores in average on five datasets.
+
+
+\end{abstract}
+
+\section{Introduction}
+Learning text embeddings is a fundamental problem in natural language processing ~\cite{Kiros2015SkipThoughtV, Hill2016LearningDR, Conneau2018SentEvalAE, Logeswaran2018AnEF, Gao2021SimCSESC, Reimers2016TaskOrientedIE}. 
+Most previous studies~\cite{Hill2016LearningDR, Logeswaran2018AnEF, Gao2021SimCSESC} focus on sentence-level representations where training data usually contain short text but high-quality long text embeddings are less explored.
+However, the long text appears frequently in NLP tasks involved in News, scientific articles, and social media. Existing works for long text either design a specific model structure~\cite{Pappagari2019HierarchicalTF} or identify important sentences~\cite{Ding2020CogLTXAB} to improve long text understanding. These methods usually rely on labels from human efforts to conduct supervised learning whereas low-resource tasks need high-quality representations from pertaining. Hence, an efficient pretraining method for high-quality long text embeddings is necessary to explore.
+
+\begin{table}
+    \input{fig/redundancy}
+    \caption{Information redundancies for different lengths (i.e.,~word numbers) of text: (1) 0-50 (2) 51-100 (3) 101-200 (4) 201-300 (5) more than 300.}
+    \label{redundancy}
+\end{table}
+To improve long text embeddings, in this paper, we present an unsupervised contrastive learning framework for long text embeddings, namely \our, which can produce superior long text embeddings without any supervision.
+To conduct contrastive learning for text embeddings, we first need to produce positive pairs.
+We investigate the information redundancy (see details in \todo{Appendix}) on five datasets for different lengths of text and the results are shown in Table~\ref{redundancy}.
+We can see that the information redundancy is larger as the length of the text is increasing. 
+This result indicates long text usually contains repeated information. 
+Based on this observation, we can assume that the model can still learn the main topic of a long text even if we drop some sentences. 
+Therefore, we randomly divide sentences of a long text into two exclusive subsets and the two subsets work as positive pairs for contrastive learning. 
+The intuition behind this method is that we expect the model will pull representations of two subsets together in the latent space by paying more attention to common keywords so that the model can learn key information from text automatically. 
+
+For large-scale pre-training, we follow previous works(~\cite{Gao2021SimCSESC, Li2022UCTopicUC}) and adopt in-batch negatives. 
+To show the effectiveness of our pretraining method, we pretrain BERT~\cite{Devlin2019BERTPO} and Longformer~\cite{Beltagy2020LongformerTL} on Wikipedia English Corpus \footnote{https://dumps.wikimedia.org/}.
+To evaluate the quality of long text embeddings, we conduct general text classification and few-shot text classification on five long text datasets involved in News and social media. 
+The experimental results show that BERT pretrained by \our can achieve \todo{NUM} and \todo{NUM} improvement of accuracy in average compared to BERT~\cite{Devlin2019BERTPO} and state-of-the-art baselines respectively.
+
+Overall, our contributions are three-fold: 
+\begin{itemize}[nosep,leftmargin=*]
+    \item After analyzing the information redundancy of long, we propose an unsupervised contrastive learning framework with a specific positive pair construction method for long text.
+    \item For high-quality long text embeddings, we conduct a large-scale pretraining on the Wikipedia dataset with BERT and Longformer.
+    \item Comprehensive experiments on long text classification are conducted and results show that our approach can largely improve the quality of long text embeddings.
+\end{itemize}
+
+\section{Method}
+\subsection{Contrastive Learning}
+Contrastive Learning aims to learn effective representations by pulling semantically close neighbors together and pushing apart non-neighbors in the latent space~\cite{Hadsell2006DimensionalityRB}.
+It assumes a contrastive instance $\{x, x^{+}, x_1^{-},\dots,x_{N-1}^{-}\}$ including one positive and $N-1$ negative instances and their representations $\{\mathbf{h}, \mathbf{h}^{+}, \mathbf{h}_1^{-}, \dots,
+\mathbf{h}_{N-1}^{-}\}$, where $x$ and $x^{+}$ are semantically related.
+we follow the contrastive learning framework~~\cite{Chen2020ASF, Li2022UCTopicUC} and take cross-entropy as our objective function:
+\begin{equation}
+\label{cl}
+    l = -\log \frac{e^{\mathrm{sim}(\mathbf{h}, \mathbf{h}^{+})/\tau}}{e^{\mathrm{sim}(\mathbf{h}, \mathbf{h}^{+})/\tau}+ \sum_{i=1}^{N-1}e^{\mathrm{sim}(\mathbf{h}, \mathbf{h}_i^{-})/\tau}}
+\end{equation}
+where $\tau$ is a temperature hyperparameter and $\mathrm{sim}(\mathbf{h}_1, \mathbf{h}_2)$ is the cosine similarity $\frac{\mathbf{h}_1^{\top}\mathbf{h}_2}{\Vert \mathbf{h}_1 \Vert \cdot \Vert \mathbf{h}_2 \Vert}$.
+In this work, we encode input texts using a pre-trained language model such as BERT~\cite{Devlin2019BERTPO}. Following BERT, we use the first special token \texttt{[CLS]} as the representation of the input and fine-tune all the parameters using the contrastive learning objective\ref{cl}.
+
+\subsection{Positive Long Text Instances}
+The critical problem in contrastive learning is how to construct positive pairs $(x, x^{+})$.
+In representation learning for visual tasks~\cite{Chen2020ASF}, an effective solution is to take two random transformations of the same image (e.g.,~flipping, rotation).
+Similarly, in language representations, previous works~\cite{Gao2021SimCSESC, Karpukhin2020DensePR, Meng2021COCOLMCA, Li2022UCTopicUC} apply augmentation techniques such as dropout, word deletion, reordering, and masking.
+
+In this paper, we propose a new method to construct positive instances for long text. 
+The basic idea of positive instance construction for contrastive learning is adding random noises to the original data for augmentation. 
+The augmented data should have similar representations to the original data. 
+Models trained by contrastive losses on augmented data will have an increased ability to learn important features in the data.
+To add random noises in long text, we find long text (e.g.,~paragraphs) usually has higher information redundancy than short text (e.g.,~sentences) as shown in \todo{Table}. With this observation, we can have an assumption: 
+The semantics of a long text will not be changed even if we drop half of the text. 
+We can construct positive pairs under this assumption easily on any text dataset without supervision.
+Specifically, for each long text in the dataset, we randomly split sentences in the long text into two subsets and the two sentence sets do not have intersections. 
+In the two subsets, we keep the order of sentences in the original long text to form two new texts. 
+According to our assumption, the two new texts should have the same semantics and hence they are used as a positive pair in contrastive learning. 
+
+Consider an example (in \todo{Figure}) to understand our positive instance construction process:
+Suppose we have a long text $T = (s_1, s_2,\dots,s_n)$ where $s_i$ is the $i$-th sentence in long text and $n$ is the number of sentences, each sentence will be sent to anchor set or positive set with the same probability ($50\%$). 
+The sentences in the same set (i.e.,~anchor or positive) will be concatenated in the same order of $T$ to form one positive pair $(T', T^+)$ for contrastive learning. 
+Positive pairs constructed by this method will not contain the same sentence and hence prevent models from overfitting on recognizing the same sentences. 
+Instead, models are guided to learn keywords appearing in positive instances so as to improve the ability to recognize key information. 
+We split the long text at sentence level instead of word level (e.g.,~word deletion for augmentation) because the word-level splitting will cause the discrepancy between pretraining and finetuning and then lead to performance decay.
+
+For negative instances, we use in-batch instances following previous contrastive frameworks~\cite{Gao2021SimCSESC, Li2022UCTopicUC}.
+
+\section{Experiments}
+In this section, we evaluate the effectiveness of our method by conducting text classification tasks. 
+To eliminate the influence of different model structures and focus on the quality of text embeddings. 
+We freeze the parameters of different text encoders and fine-tune only a multi-layer perceptron (MLP) to classify the embeddings of text encoders.
+
+\subsection{Pretraining Details}
+We use English Wikipedia~\footnote{https://en.wikipedia.org/} articles as pretraining data and each article is viewed as one training instance. 
+The total number of training instances is 6,218,825. For pre-training, we start from the pretrained BERT-BASE model~\cite{Devlin2019BERTPO} and the Longformer~\cite{Beltagy2020LongformerTL} model~\footnote{The Longformer checkpoint is pretrained on long documents by MLM task and is available from Huggingface.} 
+We follow previous works~\cite{Gao2021SimCSESC, Li2022UCTopicUC}: the masked language model loss and the contrastive learning loss are used concurrently with in-batch negatives. 
+Our pretraining learning rate is 5e-5, batch size is 36 and our model is optimized by AdamW in 1 epoch. 
+The temperature $\tau$ in the contrastive loss is set to $0.05$
+
+\subsection{Datasets}
+\begin{table}
+    \input{fig/dataset}
+    \caption{Statistics of datasets. Ave. and Med. stand for the average and median number of words respectively in one data instance.}
+    \label{dataset}
+\end{table}
+We use the following classic long text datasets to evaluate our method:
+(1) Fake News Corpus \footnote{https://github.com/several27/FakeNewsCorpus} consists of millions of news articles mostly scraped from a curated list of 1001 domains from \footnote{http://www.opensources.co/}.
+(2) 20NewsGroups~\cite{Lang1995NewsWeederLT}, which contains 18,846 documents from 20 classes.
+(3) arXiv articles dataset\footnote{https://www.kaggle.com/datasets/Cornell-University/arxiv}. This dataset lists metadata for more than 2 million STEM articles from arXiv website.
+(4) New York Times Annotated Corpus(NYT) ~\cite{sandhaus2008new} contains over 1.8 million articles written and published by the New York Times.
+(5) BBCNews \footnote{http://mlg.ucd.ie/datasets/bbc.html} consists of 2225 documents from the BBC news website corresponding to stories in five topical areas from 2004-2005.
+We do not use semantic textual similarity (STS) tasks~\cite{Agirre2012SemEval2012T6} because the sentences in these tasks are short which is not suitable to evaluate long text embeddings.
+
+
+\subsection{Baselines}
+We compare our pre-trained model to previous state-of-the-art text embeddings. 
+Unsupervised baselines include average GloVe embeddings~\cite{pennington-etal-2014-glove}, BERT~\cite{Devlin2019BERTPO}, Longformer~\cite{Beltagy2020LongformerTL} and post-processing methods such as BERT-flow~\cite{Li2020OnTS} and BERT-whitening~\cite{Su2021WhiteningSR}. 
+Some baselines using a contrastive objective include SimCSE~\cite{Gao2021SimCSESC} and CT-BERT~\cite{Carlsson2021SemanticRW}. 
+For a fair comparison, we also train a SimCSE with our pretraining dataset (\todo{SimCSE$_\mathrm{long}$}). 
+We do not include RoBERTa~\cite{Liu2019RoBERTaAR} and IS-BERT~\cite{Zhang2020AnUS} as our baselines because SimCSE achieves better results than these methods according to the paper.
+
+\begin{table*}
+    \centering
+    \input{fig/result.tex}
+    \caption{For all performance measures, larger numbers are better. Our pre-trained model achieves the best results in all cases.}
+    \label{results}
+\end{table*}
+
+\begin{figure}
+\includegraphics[width=\columnwidth,height=1.5in]{fig/few_shot.png}
+\caption{
+}  
+\label{few_shot}
+\end{figure}
+
+\subsection{Text Classification}
+In the general text classification task, we classify text embeddings with the full training set. 
+The learning rate for fine-tuning is 3e-4; the batch size is 8; the maximum sequence length is 512 tokens. 
+We fine-tune the last MLP layer on these five datasets and evaluate the classification performance with accuracy and macro-F1 scores.
+
+\textbf{Results.}
+Table~\ref{results} shows the evaluation results on different datasets. 
+Overall, we can see that \our~achieves the best performance over the 5 long text datasets. 
+Specifically, methods pretrained with contrastive objectives (i.e.,~CT-BERT, SimCSE) outperform general language representations (i.e.,~GloVe, BERT) which indicates contrastive objectives designed for text embeddings can largely improve the ability of language models to produce high-quality text embeddings. 
+Compared to the state-of-the-art method SimCSE, our model achieves $3.87\%$ macro-F1 improvement on average. Hence, our contrastive learning method is effective for long text embeddings.
+
+
+
+\subsection{Few-shot Text Classification}
+To show the performance of different text embeddings under low-resource settings, we evaluate our model with few-shot training instances.
+
+\textbf{Training Details.} 
+We sample 10 data instances per class for the FakeNewsCorpus dataset and the arXiv dataset and 5 data instances per class for the other three datasets. 
+Other settings are the same as the general text classification. 
+Since there is randomness in sampling, we repeat every experiment 10 times and take the average value of metrics.
+
+\textbf{Results.} 
+Table~\ref{results} shows the results of few-shot text classification on these five datasets. 
+We can see that \our~achieves \todo{NUM} improvements compared to SimCSE which is higher than general text classification. 
+Besides, we also compare the performance of BERT, SimCSE and \our~with different numbers of training instances on 20NewsGroups. 
+The results in Figure~\ref{few_shot} show the improvements from our method become larger as the number of training instances decreases indicating the importance of high-quality long text embeddings for low-resource settings. 
+Furthermore, our method achieves the best results under different numbers of training instances.
+
+
+
+\section{Conclusion}
+In this work, we propose an unsupervised contrastive learning framework for long text embeddings. 
+Our method provides a new method for long text data augmentation without any supervision and language models can get large-scale pretraining on any long text. 
+We conduct extensive experiments on text classification tasks under fully supervised and few-shot settings.
+Results show that our pre-trained model greatly outperforms state-of-the-art text embeddings, especially when the training data is limited.
+
+% Entries for the entire Anthology, followed by custom entries
+\bibliography{anthology,custom}
+\bibliographystyle{acl_natbib}
+
+
+\end{document}

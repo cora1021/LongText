@@ -1,0 +1,43 @@
+%\begin{tabular}{@{}lR{0.75in}R{0.75in}R{0.75in}R{0.75in}R{0.75in}R{0.75in}@{}}
+\small
+\begin{tabular}{l|cccccccccc}
+\toprule
+ Datasets   & \multicolumn{2}{c}{FakeNewsCorpus}     & \multicolumn{2}{c}{20NewsGroups}         &\multicolumn{2}{c}{arXiv}     &\multicolumn{2}{c}{NYT}        & \multicolumn{2}{c}{BBCNews} \\
+ \cmidrule(l){1-1} 
+\cmidrule(l){2-3} 
+\cmidrule(l){4-5}
+\cmidrule(l){6-7}
+\cmidrule(l){8-9}
+\cmidrule(l){10-11}
+Metrics    & Acc & F1   & Acc & F1    & Acc & F1    & Acc & F1      & Acc & F1 \\
+
+\midrule
+\multicolumn{11}{c}{\textit{Text Classification}}   \\
+\midrule
+GloVe    &  &    &  &    &  &     &  &      &  & \\
+BERT      &54.98  &42.17    &62.34  &54.19    &68.52  &20.46     &95.11  &92.65      &91.06  &90.34 \\
+BERT-flow      &  &    &  &    & &  & &   &  & \\
+BERT-whitening      &  &    & &    & &  & &   &  & \\
+CT-BERT       &55.19  &42.53    &65.76  &63.37  &71.61 &26.09  &95.69  &91.59  &90.32  &88.87   \\
+SimCSE &58.48  &47.46    &74.02  &72.57    &74.46  &30.01     &97.17  &94.69      &94.22  &93.86  \\
+
+\our$_{\mathrm{bert}}$        &\textbf{60.04}  & \textbf{50.14}   &\textbf{76.89}  &\textbf{74.85}    &\textbf{76.66}  &\textbf{32.24}     &\textbf{98.09}  &\textbf{95.93}      &\textbf{95.56}  &\textbf{95.58}  \\
+LongFormer  &  &    &  &    &  &     &  &      &  &  \\
+\our$_{\mathrm{longformer}}$  &  &    &  &    &  &     &  &      &  &  \\
+
+
+\midrule
+\multicolumn{11}{c}{\textit{Few-shot Text Classification}}   \\
+\midrule
+
+GloVe    &  &    &  &    &  &     &  &      &  &  \\
+BERT      &23.96  &23.73    &19.94  &18.71    &24.08  &10.14     &51.85  &43.90      &54.22  &52.73 \\
+BERT-flow      &  &    &  &    & &  & &   &  & \\
+BERT-whitening      &  &    & &    & &  & &   &  & \\
+CT-BERT      &23.71  &23.06    &24.11  &23.53    &27.02  &13.53     &47.23  &36.83      &59.56  &58.95   \\
+SimCSE      &25.04  &22.68    &28.63  &27.42    &32.61  &17.19     &86.51  &79.41      &83.56  &83.75    \\
+pre-train$_{\mathrm{bert}}$ &\textbf{27.79}  &\textbf{24.65}    &\textbf{55.79}  &\textbf{55.43}    &\textbf{35.79}  & \textbf{18.52}    &\textbf{88.86}  &\textbf{80.34}      &\textbf{86.86}  &\textbf{86.31}   \\
+LongFormer  &  &    &  &    &  &     &  &      &  &  \\
+pre-train$_{\mathrm{longformer}}$  &  &    &  &    &  &     &  &      &  &  \\
+\bottomrule
+\end{tabular}

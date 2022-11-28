@@ -1,0 +1,161 @@
+\begin{thebibliography}{24}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Agirre et~al.(2012)Agirre, Cer, Diab, and
+  Gonzalez-Agirre}]{Agirre2012SemEval2012T6}
+Eneko Agirre, Daniel~Matthew Cer, Mona~T. Diab, and Aitor Gonzalez-Agirre.
+  2012.
+\newblock Semeval-2012 task 6: A pilot on semantic textual similarity.
+\newblock In \emph{*SEMEVAL}.
+
+\bibitem[{Beltagy et~al.(2020)Beltagy, Peters, and
+  Cohan}]{Beltagy2020LongformerTL}
+Iz~Beltagy, Matthew~E. Peters, and Arman Cohan. 2020.
+\newblock Longformer: The long-document transformer.
+\newblock \emph{ArXiv}, abs/2004.05150.
+
+\bibitem[{Carlsson et~al.(2021)Carlsson, Gyllensten, Gogoulou, Hellqvist, and
+  Sahlgren}]{Carlsson2021SemanticRW}
+Fredrik Carlsson, Amaru~Cuba Gyllensten, Evangelia Gogoulou,
+  Erik~Ylip{\"a}{\"a} Hellqvist, and Magnus Sahlgren. 2021.
+\newblock Semantic re-tuning with contrastive tension.
+\newblock In \emph{ICLR}.
+
+\bibitem[{Chen et~al.(2020)Chen, Kornblith, Norouzi, and Hinton}]{Chen2020ASF}
+Ting Chen, Simon Kornblith, Mohammad Norouzi, and Geoffrey~E. Hinton. 2020.
+\newblock A simple framework for contrastive learning of visual
+  representations.
+\newblock \emph{ArXiv}, abs/2002.05709.
+
+\bibitem[{Conneau and Kiela(2018)}]{Conneau2018SentEvalAE}
+Alexis Conneau and Douwe Kiela. 2018.
+\newblock Senteval: An evaluation toolkit for universal sentence
+  representations.
+\newblock \emph{ArXiv}, abs/1803.05449.
+
+\bibitem[{Devlin et~al.(2019)Devlin, Chang, Lee, and
+  Toutanova}]{Devlin2019BERTPO}
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019.
+\newblock Bert: Pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock In \emph{NAACL}.
+
+\bibitem[{Ding et~al.(2020)Ding, Zhou, Yang, and Tang}]{Ding2020CogLTXAB}
+Ming Ding, Chang Zhou, Hongxia Yang, and Jie Tang. 2020.
+\newblock Cogltx: Applying bert to long texts.
+\newblock In \emph{NeurIPS}.
+
+\bibitem[{Gao et~al.(2021)Gao, Yao, and Chen}]{Gao2021SimCSESC}
+Tianyu Gao, Xingcheng Yao, and Danqi Chen. 2021.
+\newblock Simcse: Simple contrastive learning of sentence embeddings.
+\newblock \emph{ArXiv}, abs/2104.08821.
+
+\bibitem[{Hadsell et~al.(2006)Hadsell, Chopra, and
+  LeCun}]{Hadsell2006DimensionalityRB}
+Raia Hadsell, Sumit Chopra, and Yann LeCun. 2006.
+\newblock Dimensionality reduction by learning an invariant mapping.
+\newblock \emph{2006 IEEE Computer Society Conference on Computer Vision and
+  Pattern Recognition (CVPR'06)}, 2:1735--1742.
+
+\bibitem[{Hill et~al.(2016)Hill, Cho, and Korhonen}]{Hill2016LearningDR}
+Felix Hill, Kyunghyun Cho, and Anna Korhonen. 2016.
+\newblock Learning distributed representations of sentences from unlabelled
+  data.
+\newblock In \emph{NAACL}.
+
+\bibitem[{Karpukhin et~al.(2020)Karpukhin, Oğuz, Min, Lewis, Wu, Edunov, Chen,
+  and tau Yih}]{Karpukhin2020DensePR}
+Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell~Yu Wu,
+  Sergey Edunov, Danqi Chen, and Wen tau Yih. 2020.
+\newblock Dense passage retrieval for open-domain question answering.
+\newblock \emph{ArXiv}, abs/2004.04906.
+
+\bibitem[{Kiros et~al.(2015)Kiros, Zhu, Salakhutdinov, Zemel, Urtasun,
+  Torralba, and Fidler}]{Kiros2015SkipThoughtV}
+Ryan Kiros, Yukun Zhu, Ruslan Salakhutdinov, Richard~S. Zemel, Raquel Urtasun,
+  Antonio Torralba, and Sanja Fidler. 2015.
+\newblock Skip-thought vectors.
+\newblock \emph{ArXiv}, abs/1506.06726.
+
+\bibitem[{Lang(1995)}]{Lang1995NewsWeederLT}
+Ken Lang. 1995.
+\newblock Newsweeder: Learning to filter netnews.
+\newblock In \emph{ICML}.
+
+\bibitem[{Li et~al.(2020)Li, Zhou, He, Wang, Yang, and Li}]{Li2020OnTS}
+Bohan Li, Hao Zhou, Junxian He, Mingxuan Wang, Yiming Yang, and Lei Li. 2020.
+\newblock On the sentence embeddings from pre-trained language models.
+\newblock In \emph{Conference on Empirical Methods in Natural Language
+  Processing}.
+
+\bibitem[{Li et~al.(2022)Li, Shang, and McAuley}]{Li2022UCTopicUC}
+Jiacheng Li, Jingbo Shang, and Julian McAuley. 2022.
+\newblock \href {https://doi.org/10.18653/v1/2022.acl-long.426} {{UCT}opic:
+  Unsupervised contrastive learning for phrase representations and topic
+  mining}.
+\newblock In \emph{Proceedings of the 60th Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 6159--6169,
+  Dublin, Ireland. Association for Computational Linguistics.
+
+\bibitem[{Liu et~al.(2019)Liu, Ott, Goyal, Du, Joshi, Chen, Levy, Lewis,
+  Zettlemoyer, and Stoyanov}]{Liu2019RoBERTaAR}
+Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer
+  Levy, Mike Lewis, Luke Zettlemoyer, and Veselin Stoyanov. 2019.
+\newblock Roberta: A robustly optimized bert pretraining approach.
+\newblock \emph{ArXiv}, abs/1907.11692.
+
+\bibitem[{Logeswaran and Lee(2018)}]{Logeswaran2018AnEF}
+Lajanugen Logeswaran and Honglak Lee. 2018.
+\newblock An efficient framework for learning sentence representations.
+\newblock \emph{ArXiv}, abs/1803.02893.
+
+\bibitem[{Meng et~al.(2021)Meng, Xiong, Bajaj, Tiwary, Bennett, Han, and
+  Song}]{Meng2021COCOLMCA}
+Yu~Meng, Chenyan Xiong, Payal Bajaj, Saurabh Tiwary, Paul Bennett, Jiawei Han,
+  and Xia Song. 2021.
+\newblock Coco-lm: Correcting and contrasting text sequences for language model
+  pretraining.
+\newblock \emph{ArXiv}, abs/2102.08473.
+
+\bibitem[{Pappagari et~al.(2019)Pappagari, Żelasko, Villalba, Carmiel, and
+  Dehak}]{Pappagari2019HierarchicalTF}
+R.~Pappagari, Piotr Żelasko, Jes{\'u}s Villalba, Yishay Carmiel, and Najim
+  Dehak. 2019.
+\newblock Hierarchical transformers for long document classification.
+\newblock \emph{2019 IEEE Automatic Speech Recognition and Understanding
+  Workshop (ASRU)}, pages 838--844.
+
+\bibitem[{Pennington et~al.(2014)Pennington, Socher, and
+  Manning}]{pennington-etal-2014-glove}
+Jeffrey Pennington, Richard Socher, and Christopher Manning. 2014.
+\newblock \href {https://doi.org/10.3115/v1/D14-1162} {{G}lo{V}e: Global
+  vectors for word representation}.
+\newblock In \emph{Proceedings of the 2014 Conference on Empirical Methods in
+  Natural Language Processing ({EMNLP})}, pages 1532--1543, Doha, Qatar.
+  Association for Computational Linguistics.
+
+\bibitem[{Reimers et~al.(2016)Reimers, Beyer, and
+  Gurevych}]{Reimers2016TaskOrientedIE}
+Nils Reimers, Philip Beyer, and Iryna Gurevych. 2016.
+\newblock Task-oriented intrinsic evaluation of semantic textual similarity.
+\newblock In \emph{COLING}.
+
+\bibitem[{Sandhaus(2008)}]{sandhaus2008new}
+Evan Sandhaus. 2008.
+\newblock The new york times annotated corpus.
+\newblock \emph{Linguistic Data Consortium, Philadelphia}, 6(12):e26752.
+
+\bibitem[{Su et~al.(2021)Su, Cao, Liu, and Ou}]{Su2021WhiteningSR}
+Jianlin Su, Jiarun Cao, Weijie Liu, and Yangyiwen Ou. 2021.
+\newblock Whitening sentence representations for better semantics and faster
+  retrieval.
+\newblock \emph{ArXiv}, abs/2103.15316.
+
+\bibitem[{Zhang et~al.(2020)Zhang, He, Liu, Lim, and Bing}]{Zhang2020AnUS}
+Yan Zhang, Ruidan He, Zuozhu Liu, Kwan~Hui Lim, and Lidong Bing. 2020.
+\newblock An unsupervised sentence embedding method by mutual information
+  maximization.
+\newblock In \emph{Conference on Empirical Methods in Natural Language
+  Processing}.
+
+\end{thebibliography}
