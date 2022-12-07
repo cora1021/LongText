@@ -47,14 +47,14 @@
 \useunder{\uline}{\ul}{}
 
 \newcommand{\todo}[1]{{\color{red}{#1}}}
-\newcommand{\our}{\mbox{\textsc{pretrain}}}
+\newcommand{\our}{\mbox{\textsc{SimLTE}}}
 % If the title and author information does not fit in the area allocated, uncomment the following
 %
 %\setlength\titlebox{<dim>}
 %
 % and set <dim> to something 5cm or larger.
 
-\title{Unsupervised Contrastive Learning for Long Text Embeddings}
+\title{SimLTE: Simple Unsupervised Contrastive Learning for Long Text Embeddings}
 
 % Author information can be set in various styles:
 % For several authors from the same institution:
@@ -85,7 +85,7 @@
 High-quality text embeddings are essential to various natural language understanding tasks especially for low-resource settings. 
 Existing methods are proposed for general text understanding but representations for long text are less explored.
 Basically, to have better embeddings for long text, a model should have the ability to recognize key information in a long text. 
-To this end, we present an unsupervised contrastive learning framework for long text embeddings in this paper. 
+To this end, we present SimLTE, a simple unsupervised contrastive learning framework for long text embeddings in this paper. 
 Specifically, our model is pretrained on a large scale to distinguish if two texts have the same topic. 
 The key to pretraining is positive pair construction from our key information redundancy assumption for long text. 
 With this assumption, our model can be pretrained to better understand long text without any supervision.
@@ -98,16 +98,19 @@ Experimental results show that models pretrained by our framework outperform the
 \section{Introduction}
 Learning text embeddings is a fundamental problem in natural language processing ~\cite{Kiros2015SkipThoughtV, Hill2016LearningDR, Conneau2018SentEvalAE, Logeswaran2018AnEF, Gao2021SimCSESC, Reimers2016TaskOrientedIE}. 
 Most previous studies~\cite{Hill2016LearningDR, Logeswaran2018AnEF, Gao2021SimCSESC} focus on sentence-level representations where training data usually contain short text but high-quality long text embeddings are less explored.
-However, the long text appears frequently in NLP tasks involved in News, scientific articles, and social media. Existing works for long text either design a specific model structure~\cite{Pappagari2019HierarchicalTF} or identify important sentences~\cite{Ding2020CogLTXAB} to improve long text understanding. These methods usually rely on labels from human efforts to conduct supervised learning whereas low-resource tasks need high-quality representations from pertaining. Hence, an efficient pretraining method for high-quality long text embeddings is necessary to explore.
+However, the long text appears frequently in NLP tasks involved in News, scientific articles, and social media. 
+Existing works for long text either design a specific model structure~\cite{Pappagari2019HierarchicalTF, Grail2021GlobalizingBT, Rohde2021HierarchicalLF, Fang2019HierarchicalGN, Ainslie2020ETCEL} or identify important sentences~\cite{Ding2020CogLTXAB, Zaheer2020BigBT, Gidiotis2020ADA, Huang2021EfficientAF, Zhong2021DialogLMPM} to improve long text understanding. These methods usually rely on labels from human efforts to conduct supervised learning whereas low-resource tasks need high-quality representations from pertaining. Hence, an efficient pretraining method for high-quality long text embeddings is necessary to explore.
 
-\begin{table}
-    \input{fig/redundancy}
-    \caption{Information redundancies for different lengths (i.e.,~word numbers) of text: (1) 0-50 (2) 51-100 (3) 101-200 (4) 201-300 (5) more than 300.}
-    \label{redundancy}
-\end{table}
+\begin{figure}
+\includegraphics[width=\columnwidth]{fig/simlte.pdf}
+\caption{Pre-training SimLTE on a  large-scale dataset with positive instances
+}  
+\label{overall}
+\end{figure}
+
 To improve long text embeddings, in this paper, we present an unsupervised contrastive learning framework for long text embeddings, namely \our, which can produce superior long text embeddings without any supervision.
 To conduct contrastive learning for text embeddings, we first need to produce positive pairs.
-We investigate the information redundancy (see details in \todo{Appendix}) on five datasets for different lengths of text and the results are shown in Table~\ref{redundancy}.
+We investigate the information redundancy (see details in Appendix) on five datasets for different lengths of text and the results are shown in Table~\ref{redundancy}.
 We can see that the information redundancy is larger as the length of the text is increasing. 
 This result indicates long text usually contains repeated information. 
 Based on this observation, we can assume that the model can still learn the main topic of a long text even if we drop some sentences. 
@@ -127,6 +130,7 @@ Overall, our contributions are three-fold:
 \end{itemize}
 
 \section{Method}
+In this section, we first introduce background knowledge about contrastive learning and then we present \textsc{SimLTE} from how to construct positive instances.
 \subsection{Contrastive Learning}
 Contrastive Learning aims to learn effective representations by pulling semantically close neighbors together and pushing apart non-neighbors in the latent space~\cite{Hadsell2006DimensionalityRB}.
 It assumes a contrastive instance $\{x, x^{+}, x_1^{-},\dots,x_{N-1}^{-}\}$ including one positive and $N-1$ negative instances and their representations $\{\mathbf{h}, \mathbf{h}^{+}, \mathbf{h}_1^{-}, \dots,
@@ -139,7 +143,7 @@ we follow the contrastive learning framework~~\cite{Chen2020ASF, Li2022UCTopicUC
 where $\tau$ is a temperature hyperparameter and $\mathrm{sim}(\mathbf{h}_1, \mathbf{h}_2)$ is the cosine similarity $\frac{\mathbf{h}_1^{\top}\mathbf{h}_2}{\Vert \mathbf{h}_1 \Vert \cdot \Vert \mathbf{h}_2 \Vert}$.
 In this work, we encode input texts using a pre-trained language model such as BERT~\cite{Devlin2019BERTPO}. Following BERT, we use the first special token \texttt{[CLS]} as the representation of the input and fine-tune all the parameters using the contrastive learning objective\ref{cl}.
 
-\subsection{Positive Long Text Instances}
+\subsection{SimLTE}
 The critical problem in contrastive learning is how to construct positive pairs $(x, x^{+})$.
 In representation learning for visual tasks~\cite{Chen2020ASF}, an effective solution is to take two random transformations of the same image (e.g.,~flipping, rotation).
 Similarly, in language representations, previous works~\cite{Gao2021SimCSESC, Karpukhin2020DensePR, Meng2021COCOLMCA, Li2022UCTopicUC} apply augmentation techniques such as dropout, word deletion, reordering, and masking.
@@ -168,20 +172,17 @@ For negative instances, we use in-batch instances following previous contrastive
 In this section, we evaluate the effectiveness of our method by conducting text classification tasks. 
 To eliminate the influence of different model structures and focus on the quality of text embeddings. 
 We freeze the parameters of different text encoders and fine-tune only a multi-layer perceptron (MLP) to classify the embeddings of text encoders.
+We also visualize the attention weights between baselines and \textsc{SimLTE}.
 
 \subsection{Pretraining Details}
 We use English Wikipedia~\footnote{https://en.wikipedia.org/} articles as pretraining data and each article is viewed as one training instance. 
 The total number of training instances is 6,218,825. For pre-training, we start from the pretrained BERT-BASE model~\cite{Devlin2019BERTPO} and the Longformer~\cite{Beltagy2020LongformerTL} model~\footnote{The Longformer checkpoint is pretrained on long documents by MLM task and is available from Huggingface.} 
 We follow previous works~\cite{Gao2021SimCSESC, Li2022UCTopicUC}: the masked language model loss and the contrastive learning loss are used concurrently with in-batch negatives. 
-Our pretraining learning rate is 5e-5, batch size is 36 and our model is optimized by AdamW in 1 epoch. 
+Our pretraining learning rate is 5e-5, batch size is 36 and our model is optimized by AdamW~\cite{Kingma2014AdamAM} in 1 epoch. 
 The temperature $\tau$ in the contrastive loss is set to $0.05$
 
 \subsection{Datasets}
-\begin{table}
-    \input{fig/dataset}
-    \caption{Statistics of datasets. Ave. and Med. stand for the average and median number of words respectively in one data instance.}
-    \label{dataset}
-\end{table}
+
 We use the following classic long text datasets to evaluate our method:
 (1) Fake News Corpus \footnote{https://github.com/several27/FakeNewsCorpus} consists of millions of news articles mostly scraped from a curated list of 1001 domains from \footnote{http://www.opensources.co/}.
 (2) 20NewsGroups~\cite{Lang1995NewsWeederLT}, which contains 18,846 documents from 20 classes.
@@ -193,7 +194,8 @@ We do not use semantic textual similarity (STS) tasks~\cite{Agirre2012SemEval201
 
 \subsection{Baselines}
 We compare our pre-trained model to previous state-of-the-art text embeddings. 
-Unsupervised baselines include average GloVe embeddings~\cite{pennington-etal-2014-glove}, BERT~\cite{Devlin2019BERTPO}, Longformer~\cite{Beltagy2020LongformerTL} and post-processing methods such as BERT-flow~\cite{Li2020OnTS} and BERT-whitening~\cite{Su2021WhiteningSR}. 
+Unsupervised baselines include BERT~\cite{Devlin2019BERTPO}, Longformer~\cite{Beltagy2020LongformerTL}. 
+Transformers for long sequences, BigBird\cite{Zaheer2020BigBT}
 Some baselines using a contrastive objective include SimCSE~\cite{Gao2021SimCSESC} and CT-BERT~\cite{Carlsson2021SemanticRW}. 
 For a fair comparison, we also train a SimCSE with our pretraining dataset (\todo{SimCSE$_\mathrm{long}$}). 
 We do not include RoBERTa~\cite{Liu2019RoBERTaAR} and IS-BERT~\cite{Zhang2020AnUS} as our baselines because SimCSE achieves better results than these methods according to the paper.
@@ -227,11 +229,7 @@ Compared to the state-of-the-art method SimCSE, our model achieves $3.87\%$ macr
 
 \subsection{Few-shot Text Classification}
 To show the performance of different text embeddings under low-resource settings, we evaluate our model with few-shot training instances.
-
-\textbf{Training Details.} 
-We sample 10 data instances per class for the FakeNewsCorpus dataset and the arXiv dataset and 5 data instances per class for the other three datasets. 
-Other settings are the same as the general text classification. 
-Since there is randomness in sampling, we repeat every experiment 10 times and take the average value of metrics.
+Training details are in Appendix.
 
 \textbf{Results.} 
 Table~\ref{results} shows the results of few-shot text classification on these five datasets. 
@@ -240,7 +238,15 @@ Besides, we also compare the performance of BERT, SimCSE and \our~with different
 The results in Figure~\ref{few_shot} show the improvements from our method become larger as the number of training instances decreases indicating the importance of high-quality long text embeddings for low-resource settings. 
 Furthermore, our method achieves the best results under different numbers of training instances.
 
+\subsection{Attention Weights}
 
+
+\begin{figure}
+\includegraphics[width=\columnwidth,height=1.5in]{fig/attentions.pdf}
+\caption{
+}  
+\label{attentions}
+\end{figure}
 
 \section{Conclusion}
 In this work, we propose an unsupervised contrastive learning framework for long text embeddings. 
@@ -252,5 +258,26 @@ Results show that our pre-trained model greatly outperforms state-of-the-art tex
 \bibliography{anthology,custom}
 \bibliographystyle{acl_natbib}
 
+\section{Appendix}
+
+\subsection{Redundancy}
+\begin{table}
+    \input{fig/redundancy}
+    \caption{Information redundancies for different lengths (i.e.,~word numbers) of text: (1) 0-50 (2) 51-100 (3) 101-200 (4) 201-300 (5) more than 300.}
+    \label{redundancy}
+\end{table}
+
+\subsection{Dataset Statistics}
+\begin{table}
+    \input{fig/dataset}
+    \caption{Statistics of datasets. Ave. and Med. stand for the average and median number of words respectively in one data instance.}
+    \label{dataset}
+\end{table}
+
+\subsection{Training Details}
+
+For few-shot text classification, we sample 10 data instances per class for the FakeNewsCorpus dataset and the arXiv dataset and 5 data instances per class for the other three datasets. 
+Other settings are the same as the general text classification. 
+Since there is randomness in sampling, we repeat every experiment 10 times and take the average value of metrics.
 
 \end{document}
