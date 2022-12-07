@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.7.16)  28 NOV 2022 12:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.7.16)  7 DEC 2022 00:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -920,23 +920,30 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 83.
+<fig/simlte.pdf, id=42, 492.64049pt x 269.80798pt>
+File: fig/simlte.pdf Graphic file (type pdf)
+<use fig/simlte.pdf>
+Package pdftex.def Info: fig/simlte.pdf  used on input line 105.
+(pdftex.def)             Requested size: 219.08614pt x 119.988pt.
 
-(./fig/redundancy.tex) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+Underfull \vbox (badness 2134) has occurred while \output is active []
+
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 
-]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 123.
+ <./fig/simlte.pdf>]
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 126.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 123.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 126.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 130.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 140.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 134.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 144.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
@@ -946,86 +953,81 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
  [2]
-(./fig/dataset.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 188--188
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 [][][]\T1/ptm/m/n/9 (+20) https://www.kaggle.com/datasets/Cornell-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \hbox (badness 1789) in paragraph at lines 195--196
-\T1/ptm/m/n/10.95 (+20) Long-former ([][]Belt-agy et al.[][], [][]2020[][]) and
- post-
  []
 
 (./fig/result.tex
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 24.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 22.
 )
-<fig/few_shot.png, id=158, 462.528pt x 346.896pt>
+<fig/few_shot.png, id=205, 462.528pt x 346.896pt>
 File: fig/few_shot.png Graphic file (type png)
 <use fig/few_shot.png>
-Package pdftex.def Info: fig/few_shot.png  used on input line 205.
+Package pdftex.def Info: fig/few_shot.png  used on input line 211.
 (pdftex.def)             Requested size: 219.08907pt x 108.40472pt.
- [3] [4 <./fig/few_shot.png>] (./paper.bbl
-Underfull \hbox (badness 2150) in paragraph at lines 19--23
+ [3 <./fig/few_shot.png>]
+<fig/attentions.pdf, id=239, 689.4947pt x 338.12201pt>
+File: fig/attentions.pdf Graphic file (type pdf)
+<use fig/attentions.pdf>
+Package pdftex.def Info: fig/attentions.pdf  used on input line 245.
+(pdftex.def)             Requested size: 219.08572pt x 108.40247pt.
+ [4 <./fig/attentions.pdf>]
+(./paper.bbl
+Underfull \hbox (badness 2150) in paragraph at lines 28--32
 []\T1/ptm/m/n/10 Fredrik Carls-son, Amaru Cuba Gyl-len-sten, Evan-
  []
 
 
-Underfull \hbox (badness 2261) in paragraph at lines 68--72
+Underfull \hbox (badness 2261) in paragraph at lines 105--109
 \T1/ptm/m/n/10 Lewis, Ledell Yu Wu, Sergey Edunov, Danqi
  []
 
 
-Underfull \hbox (badness 4805) in paragraph at lines 75--79
+Underfull \hbox (badness 1810) in paragraph at lines 111--114
+\T1/ptm/m/n/10 A method for stochas-tic op-ti-miza-tion.  \T1/ptm/m/it/10 CoRR\
+T1/ptm/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 4805) in paragraph at lines 117--121
 []\T1/ptm/m/n/10 Ryan Kiros, Yukun Zhu, Rus-lan Salakhut-di-nov,
  []
 
 
-Underfull \hbox (badness 1708) in paragraph at lines 102--106
+Underfull \hbox (badness 1708) in paragraph at lines 138--142
 \T1/ptm/m/n/10 Luke Zettle-moyer, and Veselin Stoy-anov. 2019.
  []
 
-
-Underfull \hbox (badness 2781) in paragraph at lines 130--136
-\T1/ptm/m/it/10 Pro-cess-ing (EMNLP)\T1/ptm/m/n/10 , pages 1532--1543, Doha,
+[5]
+Underfull \hbox (badness 1472) in paragraph at lines 182--187
+\T1/ptm/m/n/10 Dubey, Joshua Ainslie, Chris Al-berti, San-ti-ago
  []
 
 
-Package lineno Warning: Linenumber reference failed, 
-(lineno)                rerun to get it right.
-
-
-Underfull \hbox (badness 1436) in paragraph at lines 149--153
-\T1/ptm/m/n/10 Ou. 2021.  Whiten-ing sen-tence rep-re-sen-ta-tions
+Underfull \hbox (badness 1867) in paragraph at lines 182--187
+\T1/ptm/m/n/10 On-tañón, Philip Pham, Anirudh Ravula, Qi-fan
  []
 
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 239.
- [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 239.
+) (./fig/redundancy.tex) (./fig/dataset.tex)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 283.
+ [6]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 283.
  (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 239.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 239.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 283.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 283.
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 239.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 283.
  ) 
 Here is how much of TeX's memory you used:
- 13658 strings out of 494415
- 215723 string characters out of 6170237
- 377821 words of memory out of 5000000
- 16690 multiletter control sequences out of 15000+600000
- 68125 words of font info for 188 fonts, out of 8000000 for 9000
+ 13706 strings out of 494415
+ 216764 string characters out of 6170237
+ 373821 words of memory out of 5000000
+ 16723 multiletter control sequences out of 15000+600000
+ 68127 words of font info for 188 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
- 43i,11n,40p,887b,352s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,11n,40p,887b,510s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/
@@ -1042,10 +1044,10 @@ exmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
 /times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (5 pages, 298328 bytes).
+Output written on paper.pdf (6 pages, 347182 bytes).
 PDF statistics:
- 286 PDF objects out of 1000 (max. 8388607)
- 257 compressed objects within 3 object streams
- 54 named destinations out of 1000 (max. 500000)
- 33286 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 382 PDF objects out of 1000 (max. 8388607)
+ 303 compressed objects within 4 object streams
+ 68 named destinations out of 1000 (max. 500000)
+ 33296 words of extra memory for PDF output out of 35830 (max. 10000000)
 

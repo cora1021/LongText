@@ -1,4 +1,4 @@
-\begin{thebibliography}{24}
+\begin{thebibliography}{30}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{Agirre et~al.(2012)Agirre, Cer, Diab, and
@@ -7,6 +7,15 @@ Eneko Agirre, Daniel~Matthew Cer, Mona~T. Diab, and Aitor Gonzalez-Agirre.
   2012.
 \newblock Semeval-2012 task 6: A pilot on semantic textual similarity.
 \newblock In \emph{*SEMEVAL}.
+
+\bibitem[{Ainslie et~al.(2020)Ainslie, Onta{\~n}{\'o}n, Alberti, Cvicek,
+  Fisher, Pham, Ravula, Sanghai, Wang, and Yang}]{Ainslie2020ETCEL}
+Joshua Ainslie, Santiago Onta{\~n}{\'o}n, Chris Alberti, Vaclav Cvicek,
+  Zachary~Kenneth Fisher, Philip Pham, Anirudh Ravula, Sumit~K. Sanghai, Qifan
+  Wang, and Li~Yang. 2020.
+\newblock Etc: Encoding long and structured inputs in transformers.
+\newblock In \emph{Conference on Empirical Methods in Natural Language
+  Processing}.
 
 \bibitem[{Beltagy et~al.(2020)Beltagy, Peters, and
   Cohan}]{Beltagy2020LongformerTL}
@@ -45,10 +54,31 @@ Ming Ding, Chang Zhou, Hongxia Yang, and Jie Tang. 2020.
 \newblock Cogltx: Applying bert to long texts.
 \newblock In \emph{NeurIPS}.
 
+\bibitem[{Fang et~al.(2019)Fang, Sun, Gan, Pillai, Wang, and
+  Liu}]{Fang2019HierarchicalGN}
+Yuwei Fang, S.~Sun, Zhe Gan, Rohit~Radhakrishna Pillai, Shuohang Wang, and
+  Jingjing Liu. 2019.
+\newblock Hierarchical graph network for multi-hop question answering.
+\newblock In \emph{Conference on Empirical Methods in Natural Language
+  Processing}.
+
 \bibitem[{Gao et~al.(2021)Gao, Yao, and Chen}]{Gao2021SimCSESC}
 Tianyu Gao, Xingcheng Yao, and Danqi Chen. 2021.
 \newblock Simcse: Simple contrastive learning of sentence embeddings.
 \newblock \emph{ArXiv}, abs/2104.08821.
+
+\bibitem[{Gidiotis and Tsoumakas(2020)}]{Gidiotis2020ADA}
+Alexios Gidiotis and Grigorios Tsoumakas. 2020.
+\newblock A divide-and-conquer approach to the summarization of long documents.
+\newblock \emph{IEEE/ACM Transactions on Audio, Speech, and Language
+  Processing}, 28:3029--3040.
+
+\bibitem[{Grail(2021)}]{Grail2021GlobalizingBT}
+Quentin Grail. 2021.
+\newblock Globalizing bert-based transformer architectures for long document
+  summarization.
+\newblock In \emph{Conference of the European Chapter of the Association for
+  Computational Linguistics}.
 
 \bibitem[{Hadsell et~al.(2006)Hadsell, Chopra, and
   LeCun}]{Hadsell2006DimensionalityRB}
@@ -63,12 +93,24 @@ Felix Hill, Kyunghyun Cho, and Anna Korhonen. 2016.
   data.
 \newblock In \emph{NAACL}.
 
+\bibitem[{Huang et~al.(2021)Huang, Cao, Parulian, Ji, and
+  Wang}]{Huang2021EfficientAF}
+Luyang Huang, Shuyang Cao, Nikolaus~Nova Parulian, Heng Ji, and Lu~Wang. 2021.
+\newblock Efficient attentions for long document summarization.
+\newblock In \emph{North American Chapter of the Association for Computational
+  Linguistics}.
+
 \bibitem[{Karpukhin et~al.(2020)Karpukhin, Oğuz, Min, Lewis, Wu, Edunov, Chen,
   and tau Yih}]{Karpukhin2020DensePR}
 Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell~Yu Wu,
   Sergey Edunov, Danqi Chen, and Wen tau Yih. 2020.
 \newblock Dense passage retrieval for open-domain question answering.
 \newblock \emph{ArXiv}, abs/2004.04906.
+
+\bibitem[{Kingma and Ba(2014)}]{Kingma2014AdamAM}
+Diederik~P. Kingma and Jimmy Ba. 2014.
+\newblock Adam: A method for stochastic optimization.
+\newblock \emph{CoRR}, abs/1412.6980.
 
 \bibitem[{Kiros et~al.(2015)Kiros, Zhu, Salakhutdinov, Zemel, Urtasun,
   Torralba, and Fidler}]{Kiros2015SkipThoughtV}
@@ -81,12 +123,6 @@ Ryan Kiros, Yukun Zhu, Ruslan Salakhutdinov, Richard~S. Zemel, Raquel Urtasun,
 Ken Lang. 1995.
 \newblock Newsweeder: Learning to filter netnews.
 \newblock In \emph{ICML}.
-
-\bibitem[{Li et~al.(2020)Li, Zhou, He, Wang, Yang, and Li}]{Li2020OnTS}
-Bohan Li, Hao Zhou, Junxian He, Mingxuan Wang, Yiming Yang, and Lei Li. 2020.
-\newblock On the sentence embeddings from pre-trained language models.
-\newblock In \emph{Conference on Empirical Methods in Natural Language
-  Processing}.
 
 \bibitem[{Li et~al.(2022)Li, Shang, and McAuley}]{Li2022UCTopicUC}
 Jiacheng Li, Jingbo Shang, and Julian McAuley. 2022.
@@ -125,31 +161,29 @@ R.~Pappagari, Piotr Żelasko, Jes{\'u}s Villalba, Yishay Carmiel, and Najim
 \newblock \emph{2019 IEEE Automatic Speech Recognition and Understanding
   Workshop (ASRU)}, pages 838--844.
 
-\bibitem[{Pennington et~al.(2014)Pennington, Socher, and
-  Manning}]{pennington-etal-2014-glove}
-Jeffrey Pennington, Richard Socher, and Christopher Manning. 2014.
-\newblock \href {https://doi.org/10.3115/v1/D14-1162} {{G}lo{V}e: Global
-  vectors for word representation}.
-\newblock In \emph{Proceedings of the 2014 Conference on Empirical Methods in
-  Natural Language Processing ({EMNLP})}, pages 1532--1543, Doha, Qatar.
-  Association for Computational Linguistics.
-
 \bibitem[{Reimers et~al.(2016)Reimers, Beyer, and
   Gurevych}]{Reimers2016TaskOrientedIE}
 Nils Reimers, Philip Beyer, and Iryna Gurevych. 2016.
 \newblock Task-oriented intrinsic evaluation of semantic textual similarity.
 \newblock In \emph{COLING}.
 
+\bibitem[{Rohde et~al.(2021)Rohde, Wu, and Liu}]{Rohde2021HierarchicalLF}
+Tobias Rohde, Xiaoxia Wu, and Yinhan Liu. 2021.
+\newblock Hierarchical learning for generation with long source sequences.
+\newblock \emph{ArXiv}, abs/2104.07545.
+
 \bibitem[{Sandhaus(2008)}]{sandhaus2008new}
 Evan Sandhaus. 2008.
 \newblock The new york times annotated corpus.
 \newblock \emph{Linguistic Data Consortium, Philadelphia}, 6(12):e26752.
 
-\bibitem[{Su et~al.(2021)Su, Cao, Liu, and Ou}]{Su2021WhiteningSR}
-Jianlin Su, Jiarun Cao, Weijie Liu, and Yangyiwen Ou. 2021.
-\newblock Whitening sentence representations for better semantics and faster
-  retrieval.
-\newblock \emph{ArXiv}, abs/2103.15316.
+\bibitem[{Zaheer et~al.(2020)Zaheer, Guruganesh, Dubey, Ainslie, Alberti,
+  Onta{\~n}{\'o}n, Pham, Ravula, Wang, Yang, and Ahmed}]{Zaheer2020BigBT}
+Manzil Zaheer, Guru Guruganesh, Kumar~Avinava Dubey, Joshua Ainslie, Chris
+  Alberti, Santiago Onta{\~n}{\'o}n, Philip Pham, Anirudh Ravula, Qifan Wang,
+  Li~Yang, and Amr Ahmed. 2020.
+\newblock Big bird: Transformers for longer sequences.
+\newblock \emph{ArXiv}, abs/2007.14062.
 
 \bibitem[{Zhang et~al.(2020)Zhang, He, Liu, Lim, and Bing}]{Zhang2020AnUS}
 Yan Zhang, Ruidan He, Zuozhu Liu, Kwan~Hui Lim, and Lidong Bing. 2020.
@@ -157,5 +191,12 @@ Yan Zhang, Ruidan He, Zuozhu Liu, Kwan~Hui Lim, and Lidong Bing. 2020.
   maximization.
 \newblock In \emph{Conference on Empirical Methods in Natural Language
   Processing}.
+
+\bibitem[{Zhong et~al.(2021)Zhong, Liu, Xu, Zhu, and
+  Zeng}]{Zhong2021DialogLMPM}
+Ming Zhong, Yang Liu, Yichong Xu, Chenguang Zhu, and Michael Zeng. 2021.
+\newblock Dialoglm: Pre-trained model for long dialogue understanding and
+  summarization.
+\newblock In \emph{AAAI Conference on Artificial Intelligence}.
 
 \end{thebibliography}
