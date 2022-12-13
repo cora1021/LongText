@@ -2,7 +2,7 @@
 \small
 \begin{tabular}{l|cccccccccc}
 \toprule
- Datasets   & \multicolumn{2}{c}{FakeNewsCorpus}     & \multicolumn{2}{c}{20NewsGroups}         &\multicolumn{2}{c}{arXiv}     &\multicolumn{2}{c}{NYT}        & \multicolumn{2}{c}{BBCNews} \\
+ Datasets   & \multicolumn{2}{c}{FakeNews}     & \multicolumn{2}{c}{20News}         &\multicolumn{2}{c}{arXiv}     &\multicolumn{2}{c}{NYT}        & \multicolumn{2}{c}{BBCNews} \\
  \cmidrule(l){1-1} 
 \cmidrule(l){2-3} 
 \cmidrule(l){4-5}
@@ -15,27 +15,27 @@ Metrics    & Acc & F1   & Acc & F1    & Acc & F1    & Acc & F1      & Acc & F1 \
 \multicolumn{11}{c}{\textit{Text Classification}}   \\
 \midrule
 BERT      &54.98  &42.17    &62.34  &54.19    &68.52  &20.46     &95.11  &92.65      &91.06  &90.34 \\
-BigBird      &  &    &70.35  &68.91    &71.58 &25.05  &97.13 &94.33   &94.11  &94.62 \\
 CT-BERT       &55.19  &42.53    &65.76  &63.37  &71.61 &26.09  &95.69  &91.59  &90.32  &88.87   \\
-SimCSE &58.48  &47.46    &74.02  &72.57    &74.46  &30.01     &97.17  &94.69      &94.22  &93.86  \\
-SimCSE$_{\mathrm{long}}$ &  &    &73.51  &72.05    &73.16 &29.41  &97.25 &93.83   &94.22  &94.30 \\
+SimCSE &58.48  &47.46    &74.02  &72.57    &74.46  &30.01     &97.17  &94.69      &94.12  &93.86  \\
+SimCSE$_{\mathrm{long}}$ &58.37  &47.56    &73.51  &72.05    &73.16 &29.41  &97.25 &93.83   &94.22  &94.30 \\
 \our$_{\mathrm{bert}}$        &\textbf{60.04}  & \textbf{50.14}   &\textbf{76.89}  &\textbf{74.85}    &\textbf{76.66}  &\textbf{32.24}     &\textbf{98.20}  &\textbf{96.05}      &\textbf{95.56}  &\textbf{95.58}  \\
 \midrule
-LongFormer  &  &    &73.69  &72.47    &71.66  &25.92     &94.36  &88.39      &96.33  &94.75  \\
-\our$_{\mathrm{longformer}}$  &  &    &\textbf{75.44}  &\textbf{74.38}    &  &     &\textbf{97.90}  &\textbf{95.43}  &\textbf{96.67}  &\textbf{95.91}  \\
+LongFormer  &65.72  &57.66    &73.69  &72.47    &71.66  &25.92     &94.36  &88.39      &96.33  &94.75  \\
+BigBird      &57.44  &47.87    &70.35  &68.91    &71.58 &25.05  &97.13 &94.33   &94.11  &94.62 \\
+\our$_{\mathrm{long}}$  &\textbf{71.60}   &\textbf{61.66}     &\textbf{75.44}  &\textbf{74.38}    &\textbf{77.68}  &\textbf{33.26}     &\textbf{97.90}  &\textbf{95.43}  &\textbf{96.67}  &\textbf{95.91}  \\
 
 
 \midrule
 \multicolumn{11}{c}{\textit{Few-shot Text Classification}}   \\
 \midrule
 BERT      &23.96  &23.73    &19.94  &18.71    &24.08  &10.14     &51.85  &43.90      &54.22  &52.73 \\
-BigBird      &  &    &  &    & &  & &   &79.11  &76.63 \\
 CT-BERT      &23.71  &23.06    &24.11  &23.53    &27.02  &13.53     &47.23  &36.83      &59.56  &58.95   \\
-SimCSE      &25.04  &22.68    &28.63  &27.42    &32.61  &17.19     &86.51  &79.41      &83.56  &83.75    \\
-SimCSE$_{\mathrm{long}}$ &  &    &  &    & &  & &   &84.44  &83.96 \\
-\our$_{\mathrm{bert}}$  &\textbf{27.79}  &\textbf{24.65}    &\textbf{55.79}  &\textbf{55.43}    &\textbf{35.79}  & \textbf{18.52}    &\textbf{88.86}  &\textbf{80.34}      &\textbf{86.86}  &\textbf{86.31}   \\
+SimCSE      &25.04  &22.68    &42.63  &41.42    &32.61  &17.19     &86.51  &78.41      &83.56  &83.75    \\
+SimCSE$_{\mathrm{long}}$ &26.39  &23.26    &48.65  &47.81    &23.42 &12.66  &85.36 &75.90   &84.44  &83.96 \\
+\our$_{\mathrm{bert}}$  &\textbf{27.79}  &\textbf{24.65}    &\textbf{55.79}  &\textbf{55.43}    &\textbf{35.79}  & \textbf{18.52}    &\textbf{90.52}  &\textbf{83.71}      &\textbf{86.86}  &\textbf{86.31}   \\
 \midrule
-LongFormer  &  &    &  &    &  &     &  &      &84.89  &85.47  \\
-\our$_{\mathrm{longformer}}$  &  &    &  &    &  &     &  &      &\textbf{86.78}  &\textbf{86.66}  \\
+LongFormer  &26.56  &25.12    &44.42  &42.41    &25.04  &13.36     &73.06  &54.87      &84.89  &85.47  \\
+BigBird      &25.36  &23.28    &39.14  &39.06    &23.62 &10.18  &86.66 &78.96   &79.11  &76.63 \\
+\our$_{\mathrm{long}}$  &\textbf{29.17}  &\textbf{27.13}    &\textbf{51.18}  &\textbf{50.96}    &\textbf{34.33}  &\textbf{18.80}   &\textbf{89.78}  &\textbf{82.88}      &\textbf{86.78}  &\textbf{86.66}  \\
 \bottomrule
 \end{tabular}

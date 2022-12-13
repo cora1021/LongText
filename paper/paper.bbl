@@ -1,4 +1,4 @@
-\begin{thebibliography}{30}
+\begin{thebibliography}{31}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{Agirre et~al.(2012)Agirre, Cer, Diab, and
@@ -144,6 +144,13 @@ Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer
 Lajanugen Logeswaran and Honglak Lee. 2018.
 \newblock An efficient framework for learning sentence representations.
 \newblock \emph{ArXiv}, abs/1803.02893.
+
+\bibitem[{Martin and Johnson(2015)}]{martin-johnson-2015-efficient}
+Fiona Martin and Mark Johnson. 2015.
+\newblock \href {https://aclanthology.org/U15-1013} {More efficient topic
+  modelling through a noun only approach}.
+\newblock In \emph{Proceedings of the Australasian Language Technology
+  Association Workshop 2015}, pages 111--115, Parramatta, Australia.
 
 \bibitem[{Meng et~al.(2021)Meng, Xiong, Bajaj, Tiwary, Bennett, Han, and
   Song}]{Meng2021COCOLMCA}
