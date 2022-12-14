@@ -82,53 +82,92 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-High-quality text embeddings are essential to various natural language understanding tasks especially for low-resource settings. 
-Existing methods are proposed for general text understanding but representations for long text are less explored.
-Basically, to have better embeddings for long text, a model should have the ability to recognize key information in a long text. 
-To this end, we present \our, a simple unsupervised contrastive learning framework for long text embeddings in this paper. 
-Specifically, we pretrain a language model to distinguish if two texts have the same topic without any supervision. 
-The positive pairs are constructed by our key information redundancy assumption for long text.
-Experimental results on five datasets show that \our~outperforms the state-of-the-art baselines of text embeddings by $3.9\%$ and $12.0\%$ macro-F1 in average respectively under general and few-shot text classification settings.
+%High-quality text embeddings are essential to various natural language understanding tasks especially for low-resource settings. 
+%Existing methods are proposed for general text understanding but representations for long text are less explored.
+%Basically, to have better embeddings for long text, a model should have the ability to recognize key information in a long text. 
+%We introduce the $\our$ 
+%To this end, we present \our, a simple unsupervised contrastive learning framework for long text embeddings in this paper. 
+%Specifically, we pretrain a language model to distinguish if two texts have the same topic without any supervision. 
+%The positive pairs are constructed by our key information redundancy assumption for long text.
+Experimental results on five datasets show that \our~outperforms the state-of-the-art models by $3.9\%$ on classification tasks and $12.0\%$ macro-F1 in average respectively under general and few-shot text classification settings.
 
 
 \end{abstract}
 
 \section{Introduction}
-Learning text embeddings is a fundamental problem in natural language processing ~\cite{Kiros2015SkipThoughtV, Hill2016LearningDR, Conneau2018SentEvalAE, Logeswaran2018AnEF, Gao2021SimCSESC, Reimers2016TaskOrientedIE}. 
-Most previous studies~\cite{Hill2016LearningDR, Logeswaran2018AnEF, Gao2021SimCSESC} focus on sentence-level representations where training data usually contain short text but high-quality long text embeddings are less explored.
-However, the long text appears frequently in NLP tasks involved in News, scientific articles, and social media. 
-Existing works for long text either design a specific model structure~\cite{Pappagari2019HierarchicalTF, Grail2021GlobalizingBT, Rohde2021HierarchicalLF, Fang2019HierarchicalGN, Ainslie2020ETCEL} or identify important sentences~\cite{Ding2020CogLTXAB, Zaheer2020BigBT, Gidiotis2020ADA, Huang2021EfficientAF, Zhong2021DialogLMPM} to improve long text understanding. These methods usually rely on labels from human efforts to conduct supervised learning whereas low-resource tasks need high-quality representations from pertaining. Hence, an efficient pretraining method for high-quality long text embeddings is necessary to explore.
+Generating high quality text embeddings for large documents is a long-standing open problem.
+%The main difficulty is that models must be able to consider how text at the beginning of the document can influence text at the end of the document.
+The recurrent connections in models like the LSTM \cite{} and GRU \cite{} allow information at all locations in the document to influence the final embedding,
+but they are slow to train because the models must consider each word sequentially.
+The transformer architecture \cite{} uses self-attention with no recurrent connections,
+and so can be trained much faster than recurrent models.
+This has led to the widespread use of language models like BERT \cite{} and ELMO \cite{} that are pre-trained on large scale web data.
+Unfortunately, the memory requirements of self-attention scale as $O(n^2)$ and so are not suitable for long documents.
+%Large scale pre-trained transformers like BERT \cite{} and ELMO \cite{} are currently state-of-the-art for many NLP tasks that require only short-term dependencies in text.
+%These transformers do not handle long-term dependencies well, however, because they require $O(n^2)$ memory for the size of the context window.
+The LongFormer \cite{} and BigBird \cite{} models allow larger-range dependencies by introducing improved attention mechanisms that reduce the memory requirements down to $O(n)$.
+This previous research focuses on designing new model architectures suitable for large documents,
+but in this paper we present the $\our$ training procedure that can work with any model architecture.
+%All of this previous research focuses on designing new model architectures.
+%Our paper introduces a new training method called the $\our$ that works for any model architecture.
+
+$\our$ is the first unsupervised training method designed specifically for large documents.
+Previous methods for training on large documents either require supervision \cite{} or use the masked language modeling (MLM) technique \cite{}.
+In MLM, we replace a token from the input text with a special ``mask'' token and train the model to predict which token was removed.
+The MLM pretraining method has been shown to work well for short-text documents \cite{},
+but we argue that it sub-optimal for large documents because most of the information for predicting the masked token is available near the token.
+The $\our$ pretraining technique is designed to force the model to learn long range dependencies within a document.
+Specifically, $\our$ uses contranstive learning,
+and our key contribution is a new method for generating the positive samples for contrastive learning (see Figure \ref{} above).
+%The most similar work to our own is the \texttt{SimCSE} method which uses contrastive learning to pre-train text models,
+
+%Supervised methods cannot be used for large-scale pretraining of models, however, so we present the 
+
+Our paper is organized as follows.
+In Section \ref{sec:method} we formally define the contrastive learning problem and our novel $\our$ training method.
+%We highlight how our $\our$ method improves on related contrastive learning frameworks like \texttt{SimCSE}
+In Section \ref{sec:experiments} we develop a new experimental evaluation procedure for large documents.
+We describe the first pre
+We conclude in \ref{sec:conclusion} by emphasizing that all of our models and datasets are open source.
+
+%Learning text embeddings is a fundamental problem in natural language processing ~\cite{Kiros2015SkipThoughtV, Hill2016LearningDR, Conneau2018SentEvalAE, Logeswaran2018AnEF, Gao2021SimCSESC, Reimers2016TaskOrientedIE}. 
+%Most previous studies~\cite{Hill2016LearningDR, Logeswaran2018AnEF, Gao2021SimCSESC} focus on sentence-level representations where training data usually contain short text but high-quality long text embeddings are less explored.
+%However, the long text appears frequently in NLP tasks involved in News, scientific articles, and social media. 
+%Existing works for long text either design a specific model structure~\cite{Pappagari2019HierarchicalTF, Grail2021GlobalizingBT, Rohde2021HierarchicalLF, Fang2019HierarchicalGN, Ainslie2020ETCEL} or identify important sentences~\cite{Ding2020CogLTXAB, Zaheer2020BigBT, Gidiotis2020ADA, Huang2021EfficientAF, Zhong2021DialogLMPM} to improve long text understanding. These methods usually rely on labels from human efforts to conduct supervised learning whereas low-resource tasks need high-quality representations from pertaining. Hence, an efficient pretraining method for high-quality long text embeddings is necessary to explore.
 
 \begin{figure}
-\includegraphics[width=\columnwidth]{fig/simlte_.pdf}
-\caption{Pre-training SimLTE on a  large-scale dataset with positive instances
+%\includegraphics[width=\columnwidth]{fig/simlte_.pdf}
+\caption{
+    Need a detailed explanation of SimLTE here.
 }
 \vspace{-5mm}
 \label{overall}
 \end{figure}
 
-To improve long text embeddings, in this paper, we present an unsupervised contrastive learning framework, namely \our, which can produce superior long text embeddings without any supervision. Instead of model structures, we seek an unsupervised pretraining method for long text embeddings.
-To conduct contrastive learning, we first need to produce positive pairs.
-We investigate the information redundancy (details in Appendix~\ref{app:redundacy}) on five datasets for different lengths of text.
-We find the information redundancy is larger as the length of the text is increasing. 
-This result indicates long text usually contains repeated information. 
-Based on this observation, we can assume that the model can still learn the main topic of a long text even if we drop some sentences. 
-Therefore, as shown in Figure~\ref{overall}, we randomly divide sentences of a long text into two exclusive subsets and the two subsets work as positive pairs for contrastive learning. 
-The intuition behind this method is that we expect the model will pull representations of two subsets together in the latent space by paying more attention to common keywords so that the model can learn key information from text automatically. 
+%To improve long text embeddings, in this paper, we present an unsupervised contrastive learning framework, namely \our, which can produce superior long text embeddings without any supervision. Instead of model structures, we seek an unsupervised pretraining method for long text embeddings.
+%To conduct contrastive learning, we first need to produce positive pairs.
+%We investigate the information redundancy (details in Appendix~\ref{app:redundacy}) on five datasets for different lengths of text.
+%We find the information redundancy is larger as the length of the text is increasing. 
+%This result indicates long text usually contains repeated information. 
+%Based on this observation, we can assume that the model can still learn the main topic of a long text even if we drop some sentences. 
+%Therefore, as shown in Figure~\ref{overall}, we randomly divide sentences of a long text into two exclusive subsets and the two subsets work as positive pairs for contrastive learning. 
+%The intuition behind this method is that we expect the model will pull representations of two subsets together in the latent space by paying more attention to common keywords so that the model can learn key information from text automatically. 
+%
+%For large-scale pre-training, we follow previous works~\cite{Gao2021SimCSESC, Li2022UCTopicUC} to adopt in-batch negatives then pretrain BERT~\cite{Devlin2019BERTPO} and Longformer~\cite{Beltagy2020LongformerTL} on Wikipedia English Corpus \footnote{https://dumps.wikimedia.org/}.
+%To evaluate the quality of long text embeddings, we conduct general and few-shot text classification on five long text datasets involved in News and scientific articles. 
+%The experimental results show that \our~with two kinds of model structures (i.e.,~BERT and Longformer) can both achieve significant improvements compared to state-of-the-art baselines.
+%
+%Overall, our contributions are three-fold: 
+%\begin{itemize}[nosep,leftmargin=*]
+    %\item After analyzing the information redundancy of long text, we propose an unsupervised contrastive learning framework with a specific positive pair construction method for long text.
+    %\item For high-quality long text embeddings, we conduct a large-scale pretraining on the Wikipedia dataset with BERT and Longformer.
+    %\item Comprehensive experiments on long text classification are conducted and results show that our approach can largely improve the quality of long text embeddings.
+%\end{itemize}
 
-For large-scale pre-training, we follow previous works~\cite{Gao2021SimCSESC, Li2022UCTopicUC} to adopt in-batch negatives then pretrain BERT~\cite{Devlin2019BERTPO} and Longformer~\cite{Beltagy2020LongformerTL} on Wikipedia English Corpus \footnote{https://dumps.wikimedia.org/}.
-To evaluate the quality of long text embeddings, we conduct general and few-shot text classification on five long text datasets involved in News and scientific articles. 
-The experimental results show that \our~with two kinds of model structures (i.e.,~BERT and Longformer) can both achieve significant improvements compared to state-of-the-art baselines.
-
-Overall, our contributions are three-fold: 
-\begin{itemize}[nosep,leftmargin=*]
-    \item After analyzing the information redundancy of long text, we propose an unsupervised contrastive learning framework with a specific positive pair construction method for long text.
-    \item For high-quality long text embeddings, we conduct a large-scale pretraining on the Wikipedia dataset with BERT and Longformer.
-    \item Comprehensive experiments on long text classification are conducted and results show that our approach can largely improve the quality of long text embeddings.
-\end{itemize}
-
+\newpage
 \section{Method}
-In this section, we first introduce background knowledge about contrastive learning and then we present \our~from how to construct positive instances.
+\label{sec:method}
+In this section, we first formally define contrastive learning, then we describe our \our~method.
 \subsection{Contrastive Learning}
 Contrastive Learning aims to learn effective representations by pulling semantically close neighbors together and pushing apart non-neighbors in the latent space~\cite{Hadsell2006DimensionalityRB}.
 It assumes a contrastive instance $\{x, x^{+}, x_1^{-},\dots,x_{N-1}^{-}\}$ including one positive and $N-1$ negative instances and their representations $\{\mathbf{h}, \mathbf{h}^{+}, \mathbf{h}_1^{-}, \dots,
@@ -167,6 +206,7 @@ We split the long text at sentence level instead of word level (e.g.,~word delet
 For negative instances, we use in-batch instances following previous contrastive frameworks~\cite{Gao2021SimCSESC, Li2022UCTopicUC}.
 
 \section{Experiments}
+\label{sec:experiments}
 In this section, we evaluate the effectiveness of our method by conducting text classification tasks. 
 To eliminate the influence of different model structures and focus on the quality of text embeddings. 
 We freeze the parameters of different text encoders and fine-tune only a multi-layer perceptron (MLP) to classify the embeddings of text encoders.
@@ -231,7 +271,7 @@ Training details are in Appendix~\ref{app:details}.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\linewidth]{fig/few_shot.pdf}
+%\includegraphics[width=0.8\linewidth]{fig/few_shot.pdf}
 \caption{Performance of different models with different numbers of instances per class under few-shot setting.}
 \label{few_shot}
 \end{figure}
@@ -254,6 +294,7 @@ To explore the difference between \our~and other models, we analyze the attentio
 \end{figure}
 
 \section{Conclusion}
+\label{sec:conclusion}
 In this work, we propose an unsupervised contrastive learning framework for long text embeddings. 
 Our method provides a new method for long text data augmentation without any supervision and language models can get large-scale pretraining on any long text. 
 We conduct extensive experiments on text classification tasks under fully supervised and few-shot settings.
