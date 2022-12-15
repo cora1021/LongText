@@ -89,13 +89,25 @@
 %To this end, we present \our, a simple unsupervised contrastive learning framework for long text embeddings in this paper. 
 %Specifically, we pretrain a language model to distinguish if two texts have the same topic without any supervision. 
 %The positive pairs are constructed by our key information redundancy assumption for long text.
-Experimental results on five datasets show that \our~outperforms the state-of-the-art models by $3.9\%$ on classification tasks and $12.0\%$ macro-F1 in average respectively under general and few-shot text classification settings.
+% Experimental results on five datasets show that \our~outperforms the state-of-the-art models by $3.9\%$ on classification tasks and $12.0\%$ macro-F1 in average respectively under general and few-shot text classification settings.
+
+This paper presents $\our$, the first unsupervised pretraining
+method designed specifically for long text (e.g.,~documents, paragraphs).
+$\our$ uses the contrastive learning framework, and our main contribution is a simple data augmentation technique for generating similar document pairs.
+A key advantage of $\our$ over other techniques for working with
+long text is that it requires no changes to model architecture, and so it is widely applicable.
+We use $\our$ pretraining to improve the embeddings of previously
+developed state-of-the-art models.
+On standard classification datasets, $\our$ improves all baseline
+models, with an average improvement of $3.9\%$ macro F1 score.
+We also consider a few-shot setting where we show an average
+improvement of $12.0\%$.
 
 
 \end{abstract}
 
 \section{Introduction}
-Generating high quality text embeddings for large documents is a long-standing open problem.
+Generating high quality text embeddings for long text is a long-standing open problem.
 %The main difficulty is that models must be able to consider how text at the beginning of the document can influence text at the end of the document.
 The recurrent connections in models like the LSTM \cite{} and GRU \cite{} allow information at all locations in the document to influence the final embedding,
 but they are slow to train because the models must consider each word sequentially.
@@ -106,16 +118,16 @@ Unfortunately, the memory requirements of self-attention scale as $O(n^2)$ and s
 %Large scale pre-trained transformers like BERT \cite{} and ELMO \cite{} are currently state-of-the-art for many NLP tasks that require only short-term dependencies in text.
 %These transformers do not handle long-term dependencies well, however, because they require $O(n^2)$ memory for the size of the context window.
 The LongFormer \cite{} and BigBird \cite{} models allow larger-range dependencies by introducing improved attention mechanisms that reduce the memory requirements down to $O(n)$.
-This previous research focuses on designing new model architectures suitable for large documents,
+This previous research focuses on designing new model architectures suitable for long text,
 but in this paper we present the $\our$ training procedure that can work with any model architecture.
 %All of this previous research focuses on designing new model architectures.
 %Our paper introduces a new training method called the $\our$ that works for any model architecture.
 
-$\our$ is the first unsupervised training method designed specifically for large documents.
-Previous methods for training on large documents either require supervision \cite{} or use the masked language modeling (MLM) technique \cite{}.
+$\our$ is the first unsupervised training method designed specifically for long text.
+Previous methods for training on long text either require supervision \cite{} or use the masked language modeling (MLM) technique \cite{}.
 In MLM, we replace a token from the input text with a special ``mask'' token and train the model to predict which token was removed.
 The MLM pretraining method has been shown to work well for short-text documents \cite{},
-but we argue that it sub-optimal for large documents because most of the information for predicting the masked token is available near the token.
+but we argue that it sub-optimal for long text because most of the information for predicting the masked token is available near the token.
 The $\our$ pretraining technique is designed to force the model to learn long range dependencies within a document.
 Specifically, $\our$ uses contranstive learning,
 and our key contribution is a new method for generating the positive samples for contrastive learning (see Figure \ref{} above).
@@ -126,7 +138,7 @@ and our key contribution is a new method for generating the positive samples for
 Our paper is organized as follows.
 In Section \ref{sec:method} we formally define the contrastive learning problem and our novel $\our$ training method.
 %We highlight how our $\our$ method improves on related contrastive learning frameworks like \texttt{SimCSE}
-In Section \ref{sec:experiments} we develop a new experimental evaluation procedure for large documents.
+In Section \ref{sec:experiments} we develop a new experimental evaluation procedure for long text.
 We describe the first pre
 We conclude in \ref{sec:conclusion} by emphasizing that all of our models and datasets are open source.
 
@@ -136,16 +148,10 @@ We conclude in \ref{sec:conclusion} by emphasizing that all of our models and da
 %Existing works for long text either design a specific model structure~\cite{Pappagari2019HierarchicalTF, Grail2021GlobalizingBT, Rohde2021HierarchicalLF, Fang2019HierarchicalGN, Ainslie2020ETCEL} or identify important sentences~\cite{Ding2020CogLTXAB, Zaheer2020BigBT, Gidiotis2020ADA, Huang2021EfficientAF, Zhong2021DialogLMPM} to improve long text understanding. These methods usually rely on labels from human efforts to conduct supervised learning whereas low-resource tasks need high-quality representations from pertaining. Hence, an efficient pretraining method for high-quality long text embeddings is necessary to explore.
 
 \begin{figure}
-<<<<<<< HEAD
-%\includegraphics[width=\columnwidth]{fig/simlte_.pdf}
-\caption{
-    Need a detailed explanation of SimLTE here.
-=======
 \includegraphics[width=\columnwidth]{fig/simlte.pdf}
-\caption{Pre-training SimLTE on a  large-scale dataset with positive instances
->>>>>>> 7e08558 (update figure and table)
+\caption{Overall framework of \our. The long text is randomly divided into two exclusive subsets of sentences and the two subsets work as positive pairs for contrastive learning. Other instances in the same batch are used as negatives.
 }
-\vspace{-5mm}
+
 \label{overall}
 \end{figure}
 
