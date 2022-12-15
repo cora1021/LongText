@@ -2,7 +2,7 @@
 *.swo
 
 *.aux
-*.pdf
+# *.pdf
 *.dvi
 *.blg
 *.fdb_latexmk
